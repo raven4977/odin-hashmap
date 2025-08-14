@@ -132,7 +132,17 @@ class HashMap {
     this.size = 0;
   }
   values() {
-    console.log(this.buckets);
+    let values = [];
+    this.buckets.forEach((bucket) => {
+      if (bucket && bucket !== null) {
+        let current = bucket.head;
+        while (current) {
+          values.push(current.value);
+          current = current.nextNode;
+        }
+      }
+    });
+    return values;
   }
 }
 
