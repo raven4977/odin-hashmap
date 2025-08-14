@@ -158,31 +158,3 @@ class HashMap {
     return array;
   }
 }
-
-const map = new HashMap();
-// console.log(map.hash("Cameron"));
-map.set("Cameron", "Brown");
-map.set("Cameron", "Second");
-
-map.set("Amerons", "Third");
-
-map.set("Coolio", "Gangsta");
-map.set("Brandon", "Areo");
-
-map.get("Cameron");
-map.has("Brandon");
-map.remove("Amerons");
-console.log(map.length());
-// console.log(map.clear());
-// console.log(map.length());
-console.log(map.values());
-console.log(map.entries());
-
-console.log(map);
-
-/* 
-  LIMITATIONS SNIPPET:
-    if (index < 0 || index >= buckets.length) {
-      throw new Error("Trying to access index out of bounds");
-    } 
-*/
