@@ -18,6 +18,22 @@ export class HashMap {
   }
 
   set(key, value) {
+    const updateLoad = Math.floor(this.loadFactor * this.capacity);
+    if (this.length() >= updateLoad) {
+      this.capacity = this.capacity * 2;
+      const buckets = this.buckets;
+      this.buckets = new Array(this.capacity).fill(null);
+      this.size = 0;
+      buckets.forEach((bucket) => {
+        if (bucket) {
+          let current = bucket.head;
+          while (current) {
+            this.set(current.key, current.value);
+            current = current.nextNode;
+          }
+        }
+      });
+    }
     const index = this.hash(key);
     if (!this.buckets[index]) {
       this.buckets[index] = new LinkedList();
