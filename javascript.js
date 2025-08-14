@@ -27,7 +27,7 @@ class HashMap {
   constructor() {
     this.loadFactor = 0.8;
     this.size = 0;
-    this.capacity = 16;
+    this.buckets = 16;
     this.hashmap = [];
   }
 
@@ -35,19 +35,19 @@ class HashMap {
     let hashCode = 0;
     const primeNumber = 31;
     for (let i = 0; i < key.length; i++) {
-      hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % this.capacity;
+      hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % this.buckets;
     }
     return hashCode;
   }
 
   set(key, value) {
-    const bucket = this.hash(key);
-    if (!this.hashmap[bucket]) {
-      this.hashmap[bucket] = new LinkedList();
-      this.hashmap[bucket].append(key, value);
+    const index = this.hash(key);
+    if (!this.hashmap[index]) {
+      this.hashmap[index] = new LinkedList();
+      this.hashmap[index].append(key, value);
       return;
     }
-    let current = this.hashmap[bucket].head;
+    let current = this.hashmap[index].head;
     while (current) {
       if (key === current.key) {
         current.value = value;
@@ -55,17 +55,38 @@ class HashMap {
       }
       current = current.nextNode;
     }
-    this.hashmap[bucket].append(key, value);
+    this.hashmap[index].append(key, value);
+  }
+
+  get(key) {
+    const index = this.hash(key);
+
+    const buckets = this.buckets;
+    if (index < 0 || index >= buckets.length) {
+      throw new Error("Trying to access index out of bounds");
+    }
+    if (this.hashmap[index]) {
+      let current = this.hashmap[index].head;
+      while (current) {
+        if (current.key === key) {
+          return current.value;
+        }
+        current = current.nextNode;
+      }
+    }
+    return null;
   }
 }
 
 const map = new HashMap();
-console.log(map.hash("Cameron"));
+// console.log(map.hash("Cameron"));
 map.set("Cameron", "Brown");
-map.set("Cameron", "Second");
+// map.set("Cameron", "Second");
 map.set("Amerons", "Third");
-map.set("Cameron", "Jarrod");
-map.set("Coolio", "Gangsta");
+// map.set("Cameron", "Jarrod");
+// map.set("Coolio", "Gangsta");
+console.log(map.get("Cameron"));
+
 console.log(map);
 
 /* 
