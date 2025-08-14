@@ -2,7 +2,7 @@ import { LinkedList } from "./linked-list.js";
 
 export class HashMap {
   constructor() {
-    this.loadFactor = 0.8;
+    this.loadFactor = 0.75;
     this.size = 0;
     this.capacity = 16;
     this.buckets = new Array(this.capacity).fill(null);
