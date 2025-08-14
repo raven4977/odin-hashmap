@@ -124,6 +124,21 @@ export class HashMap {
     this.buckets = new Array(this.capacity).fill(null);
     this.size = 0;
   }
+
+  keys() {
+    let keys = [];
+    this.buckets.forEach((bucket) => {
+      if (bucket && bucket !== null) {
+        let current = bucket.head;
+        while (current) {
+          keys.push(current.key);
+          current = current.nextNode;
+        }
+      }
+    });
+    return keys;
+  }
+
   values() {
     let values = [];
     this.buckets.forEach((bucket) => {
