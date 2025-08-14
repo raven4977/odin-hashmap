@@ -35,7 +35,7 @@ class HashMap {
     let hashCode = 0;
     const primeNumber = 31;
     for (let i = 0; i < key.length; i++) {
-      hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % this.buckets;
+      hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % this.capacity;
     }
     return hashCode;
   }
@@ -131,6 +131,9 @@ class HashMap {
     this.buckets = new Array(this.capacity).fill(null);
     this.size = 0;
   }
+  values() {
+    console.log(this.buckets);
+  }
 }
 
 const map = new HashMap();
@@ -147,8 +150,10 @@ map.get("Cameron");
 map.has("Brandon");
 map.remove("Amerons");
 console.log(map.length());
-console.log(map.clear());
-console.log(map.length());
+// console.log(map.clear());
+// console.log(map.length());
+console.log(map.values());
+
 console.log(map);
 
 /* 
