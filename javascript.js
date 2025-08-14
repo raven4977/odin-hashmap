@@ -126,6 +126,11 @@ class HashMap {
   length() {
     return this.size;
   }
+
+  clear() {
+    this.buckets = new Array(this.capacity).fill(null);
+    this.size = 0;
+  }
 }
 
 const map = new HashMap();
@@ -142,7 +147,8 @@ map.get("Cameron");
 map.has("Brandon");
 map.remove("Amerons");
 console.log(map.length());
-
+console.log(map.clear());
+console.log(map.length());
 console.log(map);
 
 /* 
