@@ -144,6 +144,19 @@ class HashMap {
     });
     return values;
   }
+  entries() {
+    let array = [];
+    this.buckets.forEach((bucket) => {
+      if (bucket) {
+        let current = bucket.head;
+        while (current) {
+          array.push([current.key, current.value]);
+          current = current.nextNode;
+        }
+      }
+    });
+    return array;
+  }
 }
 
 const map = new HashMap();
@@ -163,6 +176,7 @@ console.log(map.length());
 // console.log(map.clear());
 // console.log(map.length());
 console.log(map.values());
+console.log(map.entries());
 
 console.log(map);
 
