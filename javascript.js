@@ -76,6 +76,25 @@ class HashMap {
     }
     return null;
   }
+
+  has(key) {
+    const index = this.hash(key);
+
+    const buckets = this.buckets;
+    if (index < 0 || index >= buckets.length) {
+      throw new Error("Trying to access index out of bounds");
+    }
+    if (this.hashmap[index]) {
+      let current = this.hashmap[index].head;
+      while (current) {
+        if (current.key === key) {
+          return true;
+        }
+        current = current.nextNode;
+      }
+    }
+    return false;
+  }
 }
 
 const map = new HashMap();
@@ -86,7 +105,7 @@ map.set("Amerons", "Third");
 // map.set("Cameron", "Jarrod");
 // map.set("Coolio", "Gangsta");
 console.log(map.get("Cameron"));
-
+console.log(map.has("Brandon"));
 console.log(map);
 
 /* 
