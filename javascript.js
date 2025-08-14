@@ -45,6 +45,7 @@ class HashMap {
     if (!this.buckets[index]) {
       this.buckets[index] = new LinkedList();
       this.buckets[index].append(key, value);
+      this.size++;
       return;
     }
     let current = this.buckets[index].head;
@@ -56,6 +57,7 @@ class HashMap {
       current = current.nextNode;
     }
     this.buckets[index].append(key, value);
+    this.size++;
   }
 
   get(key) {
@@ -98,8 +100,6 @@ class HashMap {
 
   remove(key) {
     const index = this.hash(key);
-    console.log(this.buckets.length);
-
     const buckets = this.buckets;
     if (index < 0 || index >= buckets.length) {
       throw new Error("Trying to access index out of bounds");
@@ -109,29 +109,39 @@ class HashMap {
       let current = arrayValue.head;
       if (this.buckets[index].head.key === key) {
         this.buckets[index].head = this.buckets[index].head.nextNode;
+        this.size--;
         return;
       }
       while (current) {
         if (current.nextNode && current.nextNode.key === key) {
           current.nextNode = current.nextNode.nextNode;
+          this.size--;
           return;
         }
         current = current.nextNode;
       }
     }
   }
+
+  length() {
+    return this.size;
+  }
 }
 
 const map = new HashMap();
 // console.log(map.hash("Cameron"));
 map.set("Cameron", "Brown");
-// map.set("Cameron", "Second");
+map.set("Cameron", "Second");
+
 map.set("Amerons", "Third");
-// map.set("Cameron", "Jarrod");
-// map.set("Coolio", "Gangsta");
+
+map.set("Coolio", "Gangsta");
+map.set("Brandon", "Areo");
+
 map.get("Cameron");
 map.has("Brandon");
 map.remove("Amerons");
+console.log(map.length());
 
 console.log(map);
 
