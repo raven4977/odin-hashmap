@@ -100,19 +100,20 @@ export class HashMap {
     const arrayValue = this.buckets[index];
     if (arrayValue) {
       let current = arrayValue.head;
-      if (this.buckets[index].head.key === key) {
+      if (this.buckets[index].head && this.buckets[index].head.key === key) {
         this.buckets[index].head = this.buckets[index].head.nextNode;
         this.size--;
-        return;
+        return true;
       }
       while (current) {
         if (current.nextNode && current.nextNode.key === key) {
           current.nextNode = current.nextNode.nextNode;
           this.size--;
-          return;
+          return true;
         }
         current = current.nextNode;
       }
+      return false;
     }
   }
 
